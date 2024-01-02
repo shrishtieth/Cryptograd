@@ -923,7 +923,8 @@ contract CryptoGradICO is Ownable, ReentrancyGuard {
                distributeRevenue(amount, msg.sender, token, _currencyPrice);
 			}
 			
-
+        require((amount * _currencyPrice) / 10 ** 8 >= minBuyAmount, "Cannot buy less than minimum Buy Amount"); 
+		require((amount * _currencyPrice) / 10 ** 8 <= maxBuyAmount, "Cannot buy more than Max Buy Amount");
 		usdInvestedByUser[msg.sender] += (amount * _currencyPrice) / 10 ** 8;
 		tokenBoughtUser[msg.sender] += tokenAmount;
 		emit TokensBought(msg.sender, (amount * _currencyPrice) / 10 ** 8, token, tokenAmount);
